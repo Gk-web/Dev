@@ -1,18 +1,19 @@
 import {
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
-  OnInit
+  OnInit,
+  OnDestroy
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'coding-challenge-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, OnDestroy {
   @Input() data$: Observable<any>;
   chartData: any;
 
@@ -23,6 +24,9 @@ export class ChartComponent implements OnInit {
     columnNames: string[];
     options: any;
   };
+
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+  
   constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
@@ -34,6 +38,16 @@ export class ChartComponent implements OnInit {
       options: { title: `Stock price`, width: '600', height: '400' }
     };
 
-    this.data$.subscribe(newData => (this.chartData = newData));
+    this.data$
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe(newData => (this.chartData = newData));
+  }
+
+  /**
+   * Unsubscribes for all subscriptions
+   */
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }
