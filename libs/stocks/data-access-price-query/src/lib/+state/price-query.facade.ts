@@ -7,10 +7,18 @@ import { map, skip } from 'rxjs/operators';
 
 @Injectable()
 export class PriceQueryFacade {
+  public startDate: Date;
+  public endDate: Date;
+
   selectedSymbol$ = this.store.pipe(select(getSelectedSymbol));
   priceQueries$ = this.store.pipe(
     select(getAllPriceQueries),
     skip(1),
+    map(priceQueries => priceQueries.filter((priceQuery) => {
+      return this.startDate ? (new Date(priceQuery.date).getTime() >= this.startDate.getTime()  &&
+      new Date(priceQuery.date).getTime() <= this.endDate.getTime()) : priceQuery;
+    }
+    )),
     map(priceQueries =>
       priceQueries.map(priceQuery => [priceQuery.date, priceQuery.close])
     )
@@ -18,7 +26,10 @@ export class PriceQueryFacade {
 
   constructor(private store: Store<PriceQueryPartialState>) {}
 
-  fetchQuote(symbol: string, period: string) {
+  fetchQuote(symbol: string, period: string, startDate?: Date, endDate?: Date) {
     this.store.dispatch(new FetchPriceQuery(symbol, period));
+    this.startDate = startDate;
+    this.endDate = endDate;
+
   }
 }
