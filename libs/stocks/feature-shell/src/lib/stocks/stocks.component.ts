@@ -33,7 +33,6 @@ export class StocksComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.stockPickerForm.valueChanges.subscribe(this.fetchQuote);
   }
 
   fetchQuote() {
