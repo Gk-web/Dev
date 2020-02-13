@@ -34,12 +34,40 @@ export class StocksComponent implements OnInit {
   ngOnInit() { }
 
   /**
-   * method to fetch stock data with selected period and symbol
+   * method to set End Date
+   * @param event of type Date picker
    */
-  fetchQuote() {
-    if (this.stockPickerForm.valid) {
-      const { symbol, period } = this.stockPickerForm.value;
-      this.priceQuery.fetchQuote(symbol, period);
+  setEndDate(event: MatDatepickerInputEvent<Date>) {
+    const startDate = this.stockPickerForm.get('startDate').value;
+    if (event && startDate && event.value && event.value.getTime() < startDate.getTime()){
+      this.stockPickerForm.get('endDate').setValue(startDate);
+    }
+   this.getValues(event);
+  }
+
+  /**
+   * method to set start Date
+   * @param event of type Date picker
+   */
+  setStartDate(event: MatDatepickerInputEvent<Date>){
+    const endDate = this.stockPickerForm.get('endDate').value;
+    if(event && endDate && event.value && event.value.getTime() > endDate.getTime()){
+      this.stockPickerForm.get('startDate').setValue(endDate);
+    }
+    this.getValues(event);
+  }
+ 
+  /**
+   * method to get values
+   * @param event of type Date picker
+   */
+  getValues(event){
+    const startDate = this.stockPickerForm.get('startDate').value;
+    const endDate = this.stockPickerForm.get('endDate').value;
+    if (endDate &&  startDate){
+      const symbol = this.stockPickerForm.get('symbol').value;
+      const period = 'max';
+      this.priceQuery.fetchQuote(symbol, period, startDate, event.value); 
     }
   }
 
