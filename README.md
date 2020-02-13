@@ -1,3 +1,24 @@
+# T-Mobile Coding Challenge
+
+### Important! Read this First !
+
+Do **not** submit a pull request to this repository.  You PR wil be rejected and your submission ignored.
+To be safe **do not Fork** this repository, if you do you will be tempted to create a PR.
+
+To _properly_ submit a coding challenge you must:
+
+1. Create a blank (empty) repo in the public git service of your choice ( github, gitlab, bitbucket )
+2. Clone this repo to your local workstation
+3. Reset the remote origin to point to your newly created empty repo
+4. Push the master branch up to your repo
+
+5. make necessary changes
+6. push changes to your origin
+7. send address of your copy to t-mobile.
+
+We will review your copy online before and during your interview.
+
+
 # Stocks coding challenge
 
 ## How to run the application
@@ -15,17 +36,25 @@ A proxy has been set up in `stocks` to proxy calls to `locahost:3333` which is t
 
 ## Problem statement
 
-[Original problem statement](https://bitbucket.org/kburson3/developer-puzzles/src/3fb1841175cd567a63abfbe18c08e4d2a734c2e9/puzzles/web-api/stock-broker.md)
+[Original problem statement](https://github.com/tmobile/developer-kata/blob/master/puzzles/web-api/stock-broker.md)
 
 ### Task 1
 
 Please provide a short code review of the base `master` branch:
 
+#### Task 1-A
 1. What is done well?
 2. What would you change?
 3. Are there any code smells or problematic implementations?
 
 > Make a PR to fix at least one of the issues that you identify
+
+#### Task 1-B
+
+[Accessability](https://www.w3.org/WAI/GL/WCAG20/) is an important feature of all public facing websites.  
+
+> Make a PR to add accessability features to the web application
+
 
 ### Task 2
 
