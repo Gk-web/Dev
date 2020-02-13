@@ -2,6 +2,7 @@
   <mat-form-field>
     <input
       matInput
+      aria-label="symbol"
       placeholder="Symbol e.g AAPL"
       formControlName="symbol"
       value=""
@@ -18,6 +19,7 @@
   </mat-form-field>
 
   <mat-form-field>
+<<<<<<< HEAD
     <input matInput [matDatepicker]="picker1"  [max]="maxDate"  
     placeholder="Start Date" (dateChange)="setStartDate($event)" formControlName="startDate">
     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -28,7 +30,23 @@
            formControlName="endDate">
     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
     <mat-datepicker #picker2></mat-datepicker>
+=======
+    <mat-label>Favorite time period</mat-label>
+    <mat-select aria-label="timePeriod" formControlName="period">
+      <mat-option
+        aria-label="timePeriod.value"
+        *ngFor="let timePeriod of timePeriods"
+        [value]="timePeriod.value"
+      >
+        {{ timePeriod.viewValue }}
+      </mat-option>
+    </mat-select>
+>>>>>>> 8c0d76991df2755923b9e316e929377e0e41a1cb
   </mat-form-field>
 </form>
 
-<coding-challenge-chart [data$]="quotes$"></coding-challenge-chart>
+<coding-challenge-chart
+  tabIndex="0"
+  aria-label="stockChart"
+  [data$]="quotes$"
+></coding-challenge-chart>
